@@ -18,6 +18,9 @@ def iman():
 def hobby():
     return render_template('hobby.html')
 
+app.route("/portfolio")
+def portfolio():
+    return render_template('portfolio.html')
 
 app.run()
 
