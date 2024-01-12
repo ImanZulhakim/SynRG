@@ -17,6 +17,14 @@ def hobby():
 def portfolio():
     return render_template('portfolio.html')
 
+@app.route("/help")
+def help():
+    return render_template('help.html')
+
+@app.route("/contact")
+def contact():
+    return render_template('contact.html')
+
 app.run()
 
 
