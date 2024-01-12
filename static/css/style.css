@@ -25,6 +25,7 @@
 }
 
 
+
 /*** Spinner ***/
 #spinner {
     opacity: 0;
@@ -79,9 +80,13 @@
 
 /*** Navbar ***/
 .navbar.fixed-top {
-    display: flex;
     transition: .5s;
 }
+
+.navbar.scrolled {
+   display: none;
+}
+
 
 .navbar .navbar-nav .nav-link {
     padding: 20px 15px;

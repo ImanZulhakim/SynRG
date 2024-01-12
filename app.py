@@ -14,6 +14,10 @@ def home():
 def iman():
     return render_template('iman.html')
 
+@app.route("/hobby")
+def hobby():
+    return render_template('hobby.html')
+
 
 app.run()
 
