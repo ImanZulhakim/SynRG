@@ -87,15 +87,6 @@
   }
 }
 
-/* Apply the animation to an element */
-.typed-text {
-  overflow: hidden;
-  border-right: 2px solid #000;
-  white-space: nowrap;
-  /* animation: typing 3s steps(40, end) infinite; */ /* Commented out */
-}
-
-
 
 /*** Navbar ***/
 .navbar.fixed-top {
@@ -475,7 +466,7 @@
   font-weight: 700;
   margin-bottom: 10px;
   text-transform: uppercase;
-  color: #fff;
+  color: #0b0c11;
 }
 
 .hero-content p {
@@ -484,7 +475,7 @@
   margin-top: 0;
   margin-bottom: 30px;
   text-transform: capitalize;
-  color: #fff;
+  color: #0b0c11;
   font-weight: 500;
 }
 
