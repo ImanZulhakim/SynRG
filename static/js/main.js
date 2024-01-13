@@ -125,3 +125,11 @@
 
 })(jQuery);
 
+document.addEventListener('DOMContentLoaded', function () {
+    new Typed('.typed-text', {
+        strings: ["Alex Smith", "Designer", "Developer", "Freelancer", "Photographer"],
+        typeSpeed: 50,
+        backSpeed: 50,
+        loop: true
+    });
+});
