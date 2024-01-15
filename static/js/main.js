@@ -14,15 +14,15 @@
     // Initiate the wowjs
     new WOW().init();
 
-    // Navbar scroll function
-    $(window).scroll(function () {
-        var scroll = $(window).scrollTop();
-        if (scroll >= 300) {
-            $(".navbar").removeClass("scrolled");
-        } else {
-            $(".navbar").addClass("scrolled");
-        }
-    });
+    // // Navbar scroll function
+    // $(window).scroll(function () {
+    //     var scroll = $(window).scrollTop();
+    //     if (scroll >= 50) {
+    //         $(".navbar").removeClass("scrolled");
+    //     } else {
+    //         $(".navbar").addClass("scrolled");
+    //     }
+    // });
 
     // Smooth scrolling on the navbar links
     $(".navbar-nav a").on('click', function (event) {
@@ -63,18 +63,16 @@
         });
     });
 
-    // Modal Video
-    var $videoSrc;
-    $('.btn-play').click(function () {
-        $videoSrc = $(this).data("src");
+    // Typed.js Initialization
+    $(document).ready(function () {
+        var typed = new Typed('.typed-text1', {
+            strings: ["Designer", "Developer", "Freelancer", "Programmer"],
+            typeSpeed: 100,
+            backSpeed: 50,
+            loop: true
+        });
     });
-    console.log($videoSrc);
-    $('#videoModal').on('shown.bs.modal', function (e) {
-        $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
-    });
-    $('#videoModal').on('hide.bs.modal', function (e) {
-        $("#video").attr('src', $videoSrc);
-    });
+
 
     // Facts counter
     $('[data-toggle="counter-up"]').counterUp({
