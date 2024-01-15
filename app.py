@@ -7,13 +7,13 @@ app = Flask(__name__)
 
 # run_with_ngrok(app)
 @app.route("/")
-def home():
+def index():
     return render_template('index.html')
 
 
-@app.route("/main")
-def main():
-    return render_template('main.html')
+@app.route("/base")
+def base():
+    return render_template('base.html')
 
 
 @app.route("/hobby")
