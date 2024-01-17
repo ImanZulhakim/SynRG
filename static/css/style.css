@@ -21,10 +21,13 @@
 
 .py-6 {
     padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-bottom: 10rem;
 }
 
-
+.py-7 {
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+}
 
 /*** Spinner ***/
 #spinner {
@@ -522,4 +525,11 @@
 
 .add-note:hover {
   background: rgba(0, 0, 0, 0.2);
+}
+
+
+.footer-bottom-area {
+     position: fixed;
+        bottom: 0;
+        width: 100%;
 }
