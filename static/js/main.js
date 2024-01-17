@@ -56,7 +56,7 @@
     // Typed.js Initialization
     $(document).ready(function () {
         var typed = new Typed('.typed-text', {
-            strings: ["John Snow", "Designer", "Developer", "Freelancer", "Programmer"],
+            strings: ["Iman Zulhakim", "Designer", "Developer", "Freelancer", "Programmer"],
             typeSpeed: 100,
             backSpeed: 50,
             loop: true
