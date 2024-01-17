@@ -9,75 +9,98 @@
 </div>
 <script>
   const notesContainer = document.getElementById("app");
-const addNoteButton = notesContainer.querySelector(".add-note");
+  const addNoteButton = notesContainer.querySelector(".add-note");
 
-getNotes().forEach((note) => {
-  const noteElement = createNoteElement(note.id, note.content);
-  notesContainer.insertBefore(noteElement, addNoteButton);
-});
+  // Fetch notes from the server instead of local storage
+  fetch('/notes')
+    .then(response => response.json())
+    .then(notes => {
+      notes.forEach(note => {
+        const noteElement = createNoteElement(note.id, note.content);
+        notesContainer.insertBefore(noteElement, addNoteButton);
+      });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 
-addNoteButton.addEventListener("click", () => addNote());
+  addNoteButton.addEventListener("click", () => addNote());
 
-function getNotes() {
-  return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
-}
+  function createNoteElement(id, content) {
+    const element = document.createElement("textarea");
 
-function saveNotes(notes) {
-  localStorage.setItem("stickynotes-notes", JSON.stringify(notes));
-}
+    element.classList.add("note");
+    element.value = content;
+    element.placeholder = "Empty Sticky Note";
 
-function createNoteElement(id, content) {
-  const element = document.createElement("textarea");
+    element.addEventListener("change", () => {
+      updateNote(id, element.value);
+    });
 
-  element.classList.add("note");
-  element.value = content;
-  element.placeholder = "Empty Sticky Note";
+    element.addEventListener("dblclick", () => {
+      const doDelete = confirm(
+        "Are you sure you wish to delete this sticky note?"
+      );
 
-  element.addEventListener("change", () => {
-    updateNote(id, element.value);
-  });
+      if (doDelete) {
+        deleteNote(id, element);
+      }
+    });
 
-  element.addEventListener("dblclick", () => {
-    const doDelete = confirm(
-      "Are you sure you wish to delete this sticky note?"
-    );
+    return element;
+  }
 
-    if (doDelete) {
-      deleteNote(id, element);
-    }
-  });
+  function addNote() {
+    fetch('/notes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content: "" }) // Send an empty string as the new note content
+    })
+    .then(response => response.json())
+    .then(data => {
+      const noteElement = createNoteElement(data.id, data.content);
+      notesContainer.insertBefore(noteElement, addNoteButton);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
 
-  return element;
-}
+  function updateNote(id, newContent) {
+    fetch('/notes', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: id, content: newContent })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Note updated:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
 
-function addNote() {
-  const notes = getNotes();
-  const noteObject = {
-    id: Math.floor(Math.random() * 100000),
-    content: ""
-  };
-
-  const noteElement = createNoteElement(noteObject.id, noteObject.content);
-  notesContainer.insertBefore(noteElement, addNoteButton);
-
-  notes.push(noteObject);
-  saveNotes(notes);
-}
-
-function updateNote(id, newContent) {
-  const notes = getNotes();
-  const targetNote = notes.filter((note) => note.id == id)[0];
-
-  targetNote.content = newContent;
-  saveNotes(notes);
-}
-
-function deleteNote(id, element) {
-  const notes = getNotes().filter((note) => note.id != id);
-
-  saveNotes(notes);
-  notesContainer.removeChild(element);
-}
-
+  function deleteNote(id, element) {
+    fetch('/notes', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: id })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Note deleted:', data);
+      notesContainer.removeChild(element);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
 </script>
 {% endblock %}
